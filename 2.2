@@ -1,0 +1,14 @@
+#include <iostream>
+#include <iomanip>
+
+int main()
+{
+  const double pi {3.14};          
+  double radius {};
+  std::cin >> radius;
+  int precision;
+  std::cin >> precision;
+  std::cout << std::setprecision(precision);
+  const auto areaOfCircle = pi * radius * radius;
+  std::cout << "\nThe area of the circle is " << areaOfCircle << " square units." << std::endl;
+}
