@@ -1,0 +1,36 @@
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+
+const double INCHES_PER_FOOT {12.0};
+const double PI {3.141592653589793238};
+const double PI_DEGREES {180.0};
+
+
+template <typename T>
+T getUserInput(const std::string &prompt) {
+    T value;
+    std::cout << prompt;
+    std::cin >> value;
+    return value;
+}
+
+int main() {
+    double d_feet = getUserInput<double>("Enter the distance from the tree in feet: ");
+    double d_inches = getUserInput<double>("Enter the additional inches: ");
+    const double distance {d_feet + d_inches / INCHES_PER_FOOT};
+
+    double angle_degrees = getUserInput<double>("Enter the angle of the top of the tree in degrees: ");
+    double angle_radians = angle_degrees * PI / PI_DEGREES;
+
+    double eye_height_inches = getUserInput<double>("Enter your eye height from the ground in inches: ");
+    double eye_height_feet = eye_height_inches / INCHES_PER_FOOT; 
+
+    const double height {eye_height_feet + distance * std::tan(angle_radians)}; 
+    const unsigned height_feet {static_cast<unsigned>(height)};
+    const unsigned height_inches {static_cast<unsigned>(std::round(INCHES_PER_FOOT * (height - height_feet)))};
+
+    std::cout << "\nThe height of the tree is "
+              << height_feet << " feet "
+              << height_inches << " inches.\n" << std::endl;
+}
