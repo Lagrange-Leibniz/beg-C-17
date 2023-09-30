@@ -1,0 +1,14 @@
+#include <iostream>
+
+int main()
+{
+  const int inches_per_foot {12};
+  long total_length_inches {};
+  std::cin >> total_length_inches;
+
+  const long feet_part {total_length_inches / inches_per_foot};
+  const long remaining_inches {total_length_inches % inches_per_foot};
+
+  std::cout << "In " << total_length_inches << " inches there are "
+            << feet_part << " feet and " << remaining_inches << " inch(es)." << std::endl;
+}
