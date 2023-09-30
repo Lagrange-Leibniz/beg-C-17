@@ -1,0 +1,27 @@
+#include <iostream>
+#include <iomanip>
+
+const double LBS_PER_KG {2.2};
+const double INCHES_PER_FOOT {12.0};
+const double METERS_PER_FOOT {0.3048};
+
+
+template <typename T>
+T getUserInput(const std::string &prompt) {
+    T value;
+    std::cout << prompt;
+    std::cin >> value;
+    return value;
+}
+
+int main() {
+    double weight_lbs = getUserInput<double>("Enter your weight in pounds: ");
+    unsigned int height_feet = getUserInput<unsigned int>("Enter your height in feet: ");
+    unsigned int height_inches = getUserInput<unsigned int>("Enter your height in inches: ");
+
+    const double weight_kg {weight_lbs / LBS_PER_KG};
+    const double height_meters {METERS_PER_FOOT * height_feet + height_inches / INCHES_PER_FOOT};
+    const double bmi {weight_kg / (height_meters * height_meters)};
+
+    std::cout << "Your BMI is " << std::fixed << std::setprecision(1) << bmi << std::endl;
+}
