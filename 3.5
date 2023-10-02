@@ -1,0 +1,40 @@
+#include <iostream>
+#include <iomanip>
+
+int main() {
+    const unsigned RedMask {0x00FF0000};
+    const unsigned GreenMask {0x0000FF00};
+    const unsigned BlueMask {0x000000FF};
+
+    enum class Color : unsigned {
+        Red = RedMask,
+        Green = GreenMask,
+        Yellow = RedMask | GreenMask,
+        Purple = RedMask | BlueMask,
+        Blue = BlueMask,
+        Black = 0,
+        White = RedMask | GreenMask | BlueMask
+    };
+
+    const Color color1 {Color::Yellow};
+    const Color color2 {Color::Purple};
+    const Color color3 {Color::Green};
+
+    auto color {static_cast<unsigned>(color1)}; // 获取枚举值
+    std::cout << std::setw(38) << "颜色1（黄色）的分量为:"
+              << "  红色:" << std::setw(3) << ((color & RedMask) >> 16)
+              << "  绿色:" << std::setw(3) << ((color & GreenMask) >> 8)
+              << "  蓝色:" << std::setw(3) << (color & BlueMask) << std::endl;
+
+    color = static_cast<unsigned>(color2);
+    std::cout << std::setw(38) << "颜色2（紫色）的分量为:"
+              << "  红色:" << std::setw(3) << ((color & RedMask) >> 16)
+              << "  绿色:" << std::setw(3) << ((color & GreenMask) >> 8)
+              << "  蓝色:" << std::setw(3) << (color & BlueMask) << std::endl;
+
+    color = static_cast<unsigned>(color3);
+    std::cout << std::setw(38) << "颜色3（绿色）的分量为:"
+              << "  红色:" << std::setw(3) << ((color & RedMask) >> 16)
+              << "  绿色:" << std::setw(3) << ((color & GreenMask) >> 8)
+              << "  蓝色:" << std::setw(3) << (color & BlueMask) << std::endl;
+}
