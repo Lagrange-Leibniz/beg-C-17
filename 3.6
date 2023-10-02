@@ -1,0 +1,14 @@
+#include <iostream>
+
+int main() {
+    int num1 {}, num2 {};
+    std::cout << "请输入两个整数，用空格分隔：";
+    std::cin >> num1 >> num2;
+
+    // 交换两个整数的值
+    num1 ^= num2;
+    num2 ^= num1;
+    num1 ^= num2;
+
+    std::cout << "逆序排列的结果为 " << num1 << " 和 " << num2 << std::endl;
+}
