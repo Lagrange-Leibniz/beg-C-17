@@ -1,0 +1,112 @@
+#include <iostream>
+#include <cctype> // For std::tolower() / std::toupper()
+
+enum class AcademicDegree {
+    None, Associate, Bachelor, Professional, Master, Doctor
+};
+
+int main() {
+    int age{};
+    char gender{};
+    AcademicDegree degree{};
+    bool married{};
+    bool speaksHindi{};
+    bool speaksUrdu{};
+
+    std::cout << "您的年龄：";
+    std::cin >> age;
+
+    if (age < 0 || age > 130) {
+        return 1;
+    }
+
+    std::cout << "请输入您的性别（男性为 'm'，女性为 'f'）：";
+    std::cin >> gender;
+
+    gender = std::tolower(gender);
+    if (gender != 'm' && gender != 'f') {
+        return 1;
+    }
+
+    std::cout << "请输入您的最高学历：\n"
+              << "可能的值有：\n"
+              << "\tn: 无学历\n"
+              << "\ta: 副学士学位\n"
+              << "\tb: 学士学位\n"
+              << "\tp: 专业学位\n"
+              << "\tm: 硕士学位\n"
+              << "\td: 博士学位\n";
+    char degreeChar{};
+    std::cin >> degreeChar;
+
+    switch (std::tolower(degreeChar)) {
+        case 'n':
+            degree = AcademicDegree::None;
+            break;
+        case 'a':
+            degree = AcademicDegree::Associate;
+            break;
+        case 'b':
+            degree = AcademicDegree::Bachelor;
+            break;
+        case 'p':
+            degree = AcademicDegree::Professional;
+            break;
+        case 'm':
+            degree = AcademicDegree::Master;
+            break;
+        case 'd':
+            degree = AcademicDegree::Doctor;
+            break;
+        default:
+
+            return 1;
+    }
+
+    char yesNo{};
+    std::cout << "您是否已婚（是：'y'，否：'n'）？ ";
+    std::cin >> yesNo;
+
+    if (yesNo == 'y' || yesNo == 'Y')
+        married = true;
+    else if (yesNo == 'n' || yesNo == 'N')
+        married = false;
+    else {
+
+    }
+
+    std::cout << "您是否会说印地语（是：'y'，否：'n'）？ ";
+    std::cin >> yesNo;
+
+    yesNo = std::toupper(yesNo);
+    if (yesNo == 'Y')
+        speaksHindi = true;
+    else if (yesNo == 'N')
+        speaksHindi = false;
+
+
+    std::cout << "您是否会说乌尔都语（是：'y'，否：'n'）？ ";
+    std::cin >> yesNo;
+
+    switch (std::tolower(yesNo)) {
+        case 'y':
+            speaksUrdu = true;
+            break;
+        case 'n':
+            speaksUrdu = false;
+            break;
+        default:
+            return 1;
+    }
+
+    // 确定用户是否满足条件："年龄在21到35岁之间，女性，拥有学士或硕士学位，未婚，并且会说印地语或乌尔都语"
+    if ((age > 21 && age < 35)
+        && gender == 'f'
+        && (degree == AcademicDegree::Bachelor || degree == AcademicDegree::Master)
+        && !married
+        && (speaksHindi || speaksUrdu)) {
+        std::cout << "恭喜您：您正是我们正在寻找的人！您愿意接受最低工资吗？" << std::endl;
+    } else {
+        std::cout << "抱歉，您似乎不完全符合我们的要求。请不要联系我们，我们会联系您...？" << std::endl;
+    }
+}
