@@ -1,0 +1,41 @@
+#include <iostream>
+#include <iomanip>
+
+int main() {
+    unsigned int packedValue {};
+    unsigned char inputChar {};
+
+    std::cout << std::left << std::setw(26) << "输入一个字符: ";
+    std::cin >> inputChar;
+    packedValue |= inputChar;
+
+    std::cout << std::setw(26) << "输入第二个字符: ";
+    std::cin >> inputChar;
+    packedValue <<= 8; // 向左移动1字节
+    packedValue |= inputChar;
+
+    std::cout << std::setw(26) << "输入第三个字符: ";
+    std::cin >> inputChar;
+    packedValue <<= 8; // 向左移动1字节
+    packedValue |= inputChar;
+
+    std::cout << std::setw(26) << "输入第四个字符: ";
+    std::cin >> inputChar;
+    packedValue <<= 8; // 向左移动1字节
+    packedValue |= inputChar;
+
+    std::cout << "包含4个字符的字是 " << std::right << std::hex << std::showbase << std::internal << std::setfill('0') << packedValue << std::endl;
+
+    std::cout << std::setfill(' ');
+
+    // 解包 packedValue...
+    unsigned int mask {0x000000FF}; // 保留低位字节
+    inputChar = mask & packedValue; // 低位字节
+    std::cout << std::setw(4) << inputChar;
+    inputChar = mask & (packedValue >> 8); // 第二个字节
+    std::cout << std::setw(4) << inputChar;
+    inputChar = mask & (packedValue >> 16); // 第三个字节
+    std::cout << std::setw(4) << inputChar;
+    inputChar = mask & (packedValue >> 24); // 第四个字节
+    std::cout << std::setw(4) << inputChar << std::endl;
+}
