@@ -1,0 +1,30 @@
+#include <iostream>
+
+int main() {
+    int totalMice = 0;       // 总老鼠数量
+    int brownMice = 0;      // 棕色老鼠数量
+    int whiteMice = 0;      // 白色老鼠数量
+
+    std::cout << "你有多少只棕色老鼠？ ";
+    std::cin >> brownMice;
+    std::cout << "你有多少只白色老鼠？ ";
+    std::cin >> whiteMice;
+
+    if (brownMice < 0 || whiteMice < 0) {
+        std::cout << "不能有负数只老鼠。至少在这个程序中不行..." << std::endl;
+        return 1;
+    }
+
+    totalMice = brownMice + whiteMice;
+
+    std::cout << "你总共有 " << totalMice
+              << (totalMice == 1 ? " 只老鼠" : " 只老鼠")
+              << "。" << std::endl;
+
+    if (totalMice == 1) {
+        std::cout << "它是一只 " << (brownMice ? "棕色" : "白色") << " 老鼠。" << std::endl;
+    } else {
+        std::cout << "这些老鼠中，" << brownMice << ' ' << (brownMice == 1 ? "是一只" : "是")
+                  << (brownMice == 1 ? "只棕色老鼠" : "只棕色老鼠") << "。" << std::endl;
+    }
+}
