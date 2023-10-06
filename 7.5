@@ -1,0 +1,35 @@
+#include <iostream>
+#include <cctype>
+#include <string>
+
+int main() {
+    std::string word1, word2;
+
+    std::cout << "请输入第一个单词: ";
+    std::cin >> word1;
+    std::cout << "请输入第二个单词: ";
+    std::cin >> word2;
+
+    // 检查是否长度相同
+    if (word1.length() != word2.length()) {
+        std::cout << word1 << " 和 " << word2 << " 的长度不同，因此它们不能是回文！" << std::endl;
+        return 0;
+    }
+
+    std::string word2_copy = word2;  // 复制 word2，因为我们将删除字符
+
+    // 遍历 word1 中的所有字符
+    for (char c : word1) {
+        // 遍历 word2_copy 中的所有字符
+        for (size_t i = 0; i < word2_copy.length(); ++i) {
+            if (std::tolower(word2_copy[i]) == std::tolower(c)) {
+                word2_copy.erase(i, 1);  // 找到字符后从 word2_copy 中删除
+                break;                   // 注意: 不要使用 erase(i)，因为那会删除从索引 i 开始的整个子字符串！
+            }
+        }
+    }
+
+    std::cout << word1 << " 和 " << word2 << " 是"
+              << (word2_copy.empty() ? "" : "不")
+              << "回文。" << std::endl;
+}
