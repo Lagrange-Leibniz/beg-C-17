@@ -1,0 +1,48 @@
+#include <iostream>
+#include <cctype>
+#include <string>
+
+int main() {
+    const std::string delimiters {" ,;:.\"!?'\n"};
+    std::string word1, word2;
+
+    std::cout << "请输入第一个单词或短语: ";
+    std::getline(std::cin, word1);
+    std::cout << "请输入第二个单词或短语: ";
+    std::getline(std::cin, word2);
+
+    std::string word2_copy = word2;  // 复制 word2，因为我们将删除字符
+
+    bool anagrams = true;  // 假设是回文，如果发现不是，则变为 false
+
+    // 遍历 word1 中的所有字符
+    for (char c : word1) {
+        if (!std::isalnum(c)) continue;  // 忽略不是字母数字的字符
+
+        bool found = false;  // 如果找到字符，则为 true
+        // 遍历 word2_copy 中的所有字符
+        for (size_t i = 0; i < word2_copy.length(); ++i) {
+            if (std::tolower(word2_copy[i]) == std::tolower(c)) {
+                word2_copy.erase(i, 1);  // 找到字符后从 word2_copy 中删除
+                found = true;
+                break;  // 注意: 不要使用 erase(i)，因为那会删除从索引 i 开始的整个子字符串！
+            }
+        }
+        if (!found) {
+            anagrams = false;
+            break;
+        }
+    }
+
+    // 确保在这一点上 word2_copy 中不再存在字母数字字符
+    for (char c : word2_copy) {
+        if (std::isalnum(c)) {
+            anagrams = false;
+            break;
+        }
+    }
+
+    std::cout << word1 << " 和 " << word2 << " 是"
+              << (anagrams ? "" : "不")
+              << "回文。" << std::endl;
+}
