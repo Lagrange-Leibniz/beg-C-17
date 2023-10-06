@@ -1,0 +1,21 @@
+#include <iostream>
+#include <string>
+
+int main() {
+    long sum = 0;
+    std::string input;
+
+    std::cout << "输入以 # 结束的数字序列:\n";
+    while (std::cin >> input && input != "#") {
+        try {
+            int num = std::stoi(input);
+            sum += num;
+        } catch (const std::exception& e) {
+            std::cerr << "输入包含非法字符或格式不正确，请检查并重试。" << std::endl;
+            return 1; // 返回非零值表示出现错误
+        }
+    }
+
+    std::cout << "您输入的数字总和为: " << sum << std::endl;
+    return 0; // 返回零表示成功
+}
