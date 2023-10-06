@@ -1,0 +1,17 @@
+#include <iostream>
+using std::cin;
+using std::cout;
+using std::endl;
+
+int main() {
+    int number {};
+    cout << "请输入一个整数：";
+    cin >> number;
+
+    cout << "该值" 
+         << (number <= 20 ? "不大于20" 
+            : number <= 30 ? "大于20且不大于30" 
+            : number <= 100 ? "大于30且不超过100"
+            : "大于100")
+         << "。" << endl;
+}
