@@ -1,0 +1,42 @@
+#include <iostream>
+
+int main() {
+    // 声明常量（以分为单位）
+    const unsigned int quarterValue {25};
+    const unsigned int dimeValue {10};
+    const unsigned int nickelValue {5};
+
+    double inputAmountInDollars {0.0};
+    std::cout << std::endl << "请输入一个介于0到10美元之间的金额：$";
+    std::cin >> inputAmountInDollars;
+
+    if (inputAmountInDollars >= 0.0 && inputAmountInDollars <= 10.0) {
+        // 将美元金额转换为分（$1 = 100分）
+        // 我们加0.5是为了弥补二进制浮点表示中的误差
+        unsigned int amountInCents {static_cast<unsigned int>(inputAmountInDollars * 100.0 + 0.5)};
+
+        // 计算季度的数量
+        const unsigned int quarters {amountInCents / quarterValue};
+        amountInCents %= quarterValue;  // 获取余数
+
+        // 计算一角的数量
+        const unsigned int dimes {amountInCents / dimeValue};
+        amountInCents %= dimeValue;  // 获取余数
+
+        // 计算五分的数量
+        const unsigned int nickels {amountInCents / nickelValue};
+        amountInCents %= nickelValue;  // 获取余数
+
+        // 计算一分的数量
+        const unsigned int pennies {amountInCents};  // 余数已经是一分了
+
+        std::cout << std::endl
+                  << "美元金额 $" << inputAmountInDollars << " 可以分解为：" << std::endl
+                  << quarters << " 个季度" << (quarters == 1 ? "" : "s") << ',' << std::endl
+                  << dimes << " 个一角" << (dimes == 1 ? "" : "s") << ',' << std::endl
+                  << nickels << " 个五分" << (nickels == 1 ? "" : "s") << ',' << std::endl
+                  << pennies << " 个一分" << (pennies == 1 ? "" : "s") << '.' << std::endl;
+    } else {
+        std::cout << std::endl << "您未输入介于0到10美元之间的金额。" << std::endl;
+    }
+}
