@@ -1,0 +1,23 @@
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+#include <memory>
+
+int main() {
+    size_t n {};
+    std::cout << "请输入数组元素的数量：";
+    std::cin >> n;
+
+    auto values = std::make_unique<double[]>(n);
+
+    for (size_t i {}; i < n; ++i)
+        values[i] = 1.0 / ((i + 1) * (i + 1));
+
+    double sum {};
+    for (size_t i {}; i < n; ++i)
+        sum += values[i];
+
+    std::cout << "结果是 " << std::setprecision(15) << std::sqrt(6.0 * sum) << std::endl;
+
+    // 不需要手动释放内存，std::unique_ptr 会自动管理内存
+}
