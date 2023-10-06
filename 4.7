@@ -1,0 +1,46 @@
+#include <iostream>
+#include <cctype>
+
+int main() {
+    char inputChar {};
+    std::cout << "请输入一个字母：";
+    std::cin >> inputChar;
+
+    if (!std::isalpha(inputChar)) {
+        std::cout << "这不是一个字母！" << std::endl;
+        return 1;
+    }
+
+    // 确定是大写字母还是小写字母。
+    std::cout << "'" << inputChar << "' 是" << (std::islower(inputChar) ? "小写字母" : "大写字母") << "。" << std::endl;
+
+    // 确定是元音还是辅音。
+    std::cout << "'" << inputChar << "' 是";
+    switch (std::tolower(inputChar)) {
+        case 'a':
+        case 'e':
+        case 'i':
+        case 'o':
+        case 'u':
+            std::cout << "元音";
+            break;
+        default:
+            std::cout << "辅音";
+            break;
+    }
+    std::cout << "。" << std::endl;
+
+    // 输出字符的二进制表示。
+    std::cout << "'" << inputChar << "' 的二进制表示为 "
+              << ((inputChar & 0b10000000) ? 1 : 0)
+              << ((inputChar & 0b01000000) ? 1 : 0)
+              << ((inputChar & 0b00100000) ? 1 : 0)
+              << ((inputChar & 0b00010000) ? 1 : 0)
+              << ((inputChar & 0b00001000) ? 1 : 0)
+              << ((inputChar & 0b00000100) ? 1 : 0)
+              << ((inputChar & 0b00000010) ? 1 : 0)
+              << ((inputChar & 0b00000001) ? 1 : 0)
+              << std::endl;
+
+    return 0;
+}
