@@ -1,0 +1,50 @@
+#include <iostream>
+#include <iomanip>
+#include <string>
+#include <vector>
+#include <unordered_map>  // 使用unordered_map来存储单词和它们的计数
+
+int main() {
+    std::string text;
+    std::cout << "请输入一些文本，以 * 结束输入:\n";
+    std::getline(std::cin, text, '*');
+
+    const std::string separators = " ,;:.\"!?'\n";
+    std::vector<std::string> words;
+    std::unordered_map<std::string, size_t> word_counts;
+
+    size_t start = text.find_first_not_of(separators);
+    while (start != std::string::npos) {
+        size_t end = text.find_first_of(separators, start + 1);
+        if (end == std::string::npos) {
+            end = text.length();
+        }
+        std::string word = text.substr(start, end - start);
+
+        // 使用unordered_map来统计单词出现次数
+        ++word_counts[word];
+
+        start = text.find_first_not_of(separators, end + 1);
+    }
+
+    // 计算最长单词长度
+    size_t max_length = 0;
+    for (const auto& pair : word_counts) {
+        max_length = std::max(max_length, pair.first.length());
+    }
+
+    std::cout << "输入的文本包含以下 " << word_counts.size() << " 个单词及其计数:\n";
+    size_t count = 0;
+    const size_t perline = 3;
+
+    for (const auto& pair : word_counts) {
+        std::cout << std::setw(max_length) << std::left << pair.first
+                  << std::setw(4) << std::right << pair.second << "  ";
+        if (++count % perline == 0) {
+            std::cout << std::endl;
+        }
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
