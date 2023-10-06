@@ -1,0 +1,53 @@
+#include <iostream>
+#include <string>
+#include <cctype>
+
+int main() {
+    std::string text;  // 要搜索的文本
+    std::string word;  // 要替换的单词
+
+    std::cout << "请输入一些文本，以 * 结束输入:\n";
+    std::getline(std::cin, text, '*');
+    std::cout << "\n输入要替换的单词: ";
+    std::cin >> word;
+
+    std::string lower_word;  // 存储单词的小写版本
+    for (char ch : word) {
+        lower_word += std::tolower(ch);
+    }
+
+    const std::string separators = " ,;:.\"!?'\n";  // 单词分隔符
+
+    size_t start = text.find_first_not_of(separators);  // 第一个单词的起始索引
+    while (start != std::string::npos) {
+        size_t end = text.find_first_of(separators, start + 1);  // 单词的结束索引
+        if (end == std::string::npos) {
+            end = text.length();  // 没有找到分隔符，设置为文本末尾
+        }
+
+        // 检查找到的单词是否与小写版本的单词匹配
+        bool is_same_word = true;
+        size_t word_length = end - start;
+        if (word_length == word.length()) {
+            for (size_t i = 0; i < word_length; ++i) {
+                if (std::tolower(text[start + i]) != lower_word[i]) {
+                    is_same_word = false;
+                    break;
+                }
+            }
+        } else {
+            is_same_word = false;
+        }
+
+        if (is_same_word) {
+            // 将匹配的单词替换为星号
+            for (size_t i = start; i < end; ++i) {
+                text[i] = '*';
+            }
+        }
+
+        start = text.find_first_not_of(separators, end + 1);  // 找到下一个单词的第一个字符
+    }
+
+    std::cout << std::endl << text << std::endl;
+}
