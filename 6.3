@@ -1,0 +1,21 @@
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+
+int main() {
+    size_t n {};
+    std::cout << "请输入数组元素的数量：";
+    std::cin >> n;
+
+    double* values = new double[n];
+    for (size_t i {}; i < n; ++i)
+        values[i] = 1.0 / ((i + 1) * (i + 1));
+
+    double sum {};
+    for (size_t i {}; i < n; ++i)
+        sum += values[i];
+
+    std::cout << "结果是 " << std::setprecision(15) << std::sqrt(6.0 * sum) << std::endl;
+
+    delete[] values; // 不要忘记释放内存！
+}
