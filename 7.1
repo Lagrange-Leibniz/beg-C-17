@@ -1,0 +1,70 @@
+#include <iostream>
+#include <iomanip>
+#include <cctype>
+#include <vector>
+#include <string>
+
+int main() {
+    std::vector<std::string> names;
+    std::vector<double> grades;
+
+    size_t max_length = 0; // 最长姓名长度
+    double total_grade = 0.0; // 所有成绩的总和
+
+    // 数据输入循环，为每个学生输入姓名和成绩
+    while (true) {
+        std::cout << "请输入学生的姓名（或输入q退出）: ";
+        std::string name;
+        std::getline(std::cin, name);
+
+        if (name == "q" || name == "Q") {
+            break; // 输入 q 退出循环
+        }
+
+        names.push_back(name);
+        if (max_length < name.length()) {
+            max_length = name.length();
+        }
+
+        std::cout << "请输入 " << name << " 的成绩: ";
+        double grade = 0.0;
+        std::cin >> grade;
+        grades.push_back(grade);
+
+        total_grade += grade;
+
+        std::cout << "是否继续输入下一个学生的信息 (y/n): ";
+        char answer;
+        std::cin.ignore(); // 忽略上一个输入操作中的换行符
+        std::cin >> answer;
+
+        if (std::toupper(answer) != 'Y') {
+            break;
+        }
+    }
+
+    if (names.empty()) {
+        std::cout << "没有输入学生信息。" << std::endl;
+        return 0;
+    }
+
+    // 计算班级平均成绩
+    double average_grade = total_grade / names.size();
+
+    // 显示班级平均成绩
+    std::cout << "\n班级共有 " << names.size() << " 名学生，平均成绩为 "
+              << std::fixed << std::setprecision(2) << average_grade << std::endl;
+
+    // 显示学生的姓名和成绩
+    const size_t perline = 3;
+    for (size_t i = 0; i < names.size(); ++i) {
+        std::cout << "  " << std::left << std::setw(max_length) << names[i]
+                  << std::right << std::setw(6) << std::setprecision(2) << grades[i];
+        if ((i + 1) % perline == 0) {
+            std::cout << std::endl;
+        }
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
